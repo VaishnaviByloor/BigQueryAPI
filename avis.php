@@ -12,7 +12,7 @@ $contactkey = $object['inArguments'][1]['contactkey'];
 
 
 
-$ur = 'https://pub.s6.exacttarget.com/deq13jnmlxs?contactkey='.$contactkey;
+$ur = 'https://pub.s6.exacttarget.com/cbtxv20ezt5?contactkey='.$contactkey;
 $ch = curl_init($ur);
 $http_headers = array(
     'User-Agent: Junk', // Any User-Agent will do here
