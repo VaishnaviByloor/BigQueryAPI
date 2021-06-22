@@ -12,7 +12,7 @@ $contactkey = $object['inArguments'][1]['contactkey'];
 
 
 
-$ur = 'https://pub.s6.exacttarget.com/cbtxv20ezt5?contactkey='.$contactkey;
+$ur = 'http://cloud.avis-comms.international/contactless_endpoint?contactkey='.$contactkey;
 $ch = curl_init($ur);
 $http_headers = array(
     'User-Agent: Junk', // Any User-Agent will do here
