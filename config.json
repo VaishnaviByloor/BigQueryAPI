@@ -7,8 +7,8 @@
     "type": "REST",
     "lang": {
        "en-US": {
-           "name": "Contactless",
-           "description": "Xpress checkin"
+           "name": "BigQueryAPI",
+           "description": " "
        }
     },
     "arguments": {
