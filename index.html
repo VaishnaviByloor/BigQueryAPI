@@ -43,7 +43,7 @@
 						<br/>
 							<div class="md-form" style="width:100px">
 							  <textarea id="select1" class="" rows="1" style="display:none" readonly>Contactless ready! </textarea><br/>
-							  <input type="hidden" id="contactkey" value="{{Contact.key}}">
+                <input type="hidden" id="contactkey" name="contactkey"></input>
 								<p style="background: #fff;
     border-radius: 5px;
     padding: 10px;display:none">
@@ -133,5 +133,47 @@
 
     });
 		</script>
+			 <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/8.0.20/jsrsasign-all-min.js"></script>
+<script>
+  var token = '';
+  var pHeader = {
+    "alg":"RS256","typ":"JWT"}
+  var sHeader = JSON.stringify(pHeader);
+  var pClaim = {
+  };
+  pClaim.aud = "https://accounts.google.com/o/oauth2/token";
+  pClaim.scope = "https://www.googleapis.com/auth/bigquery";
+  pClaim.iss = "dwprodsu-bq-crm-service-acct@lively-encoder-854.iam.gserviceaccount.com";
+  pClaim.exp = KJUR.jws.IntDate.get("now + 1hour");
+  pClaim.iat = KJUR.jws.IntDate.get("now");
+  var sClaim = JSON.stringify(pClaim);
+  var key = "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCdcm2EFOPCc1yI\n7+FUiSbxwj28dEgIigxOVbvFygvPUFYK6zctuRMF+S91hIG6HtBNgxRMOoIIDf9R\ngOyPGgyjlHllrC5y/k1gvBTKSSJWSF/rHYL1RsK2/l2RdTogO9NpaOUHFieFnjI+\nHgb3ozOEnWeSrVvpdtfj3fZt5prRgxc10fd337ViCoOYsskZSve8iWIXY3kNUDSU\nPD4aoshX+Pz/l6Y0Y9nM/9zWzQkjDx90EPJdV61HrSCuTu85OIrJZEbaIrstW13f\nCe15h3W8HzRx2YkkcHSUt0wk6c9A05TLPYgVq3VD/G/04/PAIfxuu38Useyg/Alz\nF8FcJ1f3AgMBAAECggEAC65Ry12kuNLyjQ2a8+N0WmBU+zZ3TPw3myzc0E5D9Qla\nm4HFkg9Whs1sxMpkDikQvtzC30BB+xNVcLhgvzcpXo4lOYf+LuAzYRdjGs+KjB3f\ne+PbHj5giM9d+sIt4fao9yY7Q6d+9CNUn+t+DID0/AQ/ixAbLxAhm+a7odNc2L6Z\nRz0yzmcLuldLszHRSL0CrMjGPS5QXOrHmRTsfazgr/lpIFg1w1DSKAQtYgKPP1ng\n9gX4FmD8uyqWJZP6jz0GmbE3235prZGPSsj6dFobZQXm0W6P6w5cDAqplyVnga4V\nxX11HHVHVtweShVgCmAnfBJ4jpM7zdtN2G8S2/2wUQKBgQDdCU6c4l2lRRYdJ0Ko\nT9gFCOa8+Dd8twn5IoBH3TO6Yl05vQJpfXaj3WvV6uwWUCZpRGGMD0lH6QABF52p\nNgX9v/dCQBgUBpkimWwAup+A4nHXrt2thsk3A2CwynxECs+zMkl0g30rkdK3oumv\n/7afBFS3Rg3YZkOOi0/wQ3HIhwKBgQC2Wh6GI5QCnS1d6gJDYn2/BIB21/DAIq+c\n/QN+aK0jRgLC3ExzHqL//of+IuTJjMMMqaEpDZAmTYn/R0CeV2QxMUZlQjIvY1AZ\nbxwJ5bB75PSQcGOJUv8Z/UV/OJvBQxOgZvvjzZYQ0zr0mrB3l2BKBOsPdp5oZY4+\nNkv91EuBEQKBgGEq2D4rXNNsfX4vZiQrhWEhOp3T2EChDmdQ/WeaHEVRPH5HUqoh\nF2iNy/vsHADrFxerkd5KUgKksPXJ9esO7q9QFlgvaOZUyDjnjQz8/WVhJn6URqsj\n14yxlW3idaJLxmaWMqhfrUTcA+/qVCSkmxlog/1VdHyu5//fyjJq07g9AoGAWafJ\nZi5L8VUSHyCU6EiehrJR7xyQtAbZzRfhBd+1cKhVZzUlKVygy7h7aIoDbs0UgT9N\ni3+tpgdtl+OSc8eH7V/KurJnNkFf+oFUidEyilexnuqDJdt2rXKHHtvYSJcQKUc5\nBXHpHHCehfEgXkxA/WOZpsqta6qy2webKTudu+ECgYEAo/z5ku9MzKmLdVLU1FGa\nlUYmoqr6EIRgnFXgZK+ysUundbDg+maQPBUNRSJLVnG/U8xSyeYzyOFWRFamSBgU\nFmRctHDaDiFlPp5PXNaUJRtkAxEWK7rAEQcGHZA7QjZJvbiHMev2pR1Kt3RaLu5e\nCParVyHj5Xty7Y/iExZdKgA=\n-----END PRIVATE KEY-----\n"
+  var sJWS = KJUR.jws.JWS.sign(null, sHeader, sClaim, key);
+  var XHR = new XMLHttpRequest();
+  var urlEncodedData = "";
+  var urlEncodedDataPairs = [];
+  urlEncodedDataPairs.push(encodeURIComponent("grant_type") + '=' + encodeURIComponent("urn:ietf:params:oauth:grant-type:jwt-bearer"));
+  urlEncodedDataPairs.push(encodeURIComponent("assertion") + '=' + encodeURIComponent(sJWS));
+  urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
+  XHR.onreadystatechange = function() {
+    if (XHR.readyState == 4 && XHR.status == 200) {
+      var response = JSON.parse(XHR.responseText);
+      token = response["access_token"];
+	    console.log(token);
+ document.getElementById("contactkey").value = token;
+	      console.log('after assigning to contactkey:', document.getElementById("contactkey").value);
+
+    }
+  }
+  // We define what will happen in case of error
+  XHR.addEventListener('error', function(event) {
+    console.log('Oops! Something went wrong.');
+  }
+                      );
+  XHR.open('POST', 'https://accounts.google.com/o/oauth2/token');
+  XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded','Access-Control-Allow-Origin','*');
+  XHR.send(urlEncodedData)
+
+</script>
 	</body>
 </html>
