@@ -32,7 +32,6 @@ define([
 					var message = getMessage();
 					var name = $('#select1').val();
 					 connection.trigger('updateButton', { button: 'next', enabled: Boolean(message) });
-					console.log('from done button:', document.getElementById("contactkey").value);
 
 					$('#message').html(message);
 				});
